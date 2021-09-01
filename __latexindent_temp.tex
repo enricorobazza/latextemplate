@@ -1,0 +1,1007 @@
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Problem Set/Assignment Template to be used by the
+%% Food and Resource Economics Department - IFAS
+%% University of Florida's graduates.
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Version 1.0 - November 2019
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[12pt]{article}
+\usepackage{design_ASC}
+\usepackage{parskip}
+\usepackage{listings}
+\usepackage{longtable}
+\usepackage{float}
+\usepackage{titling}
+\usepackage{subcaption}
+\renewcommand\maketitlehooka{\null\mbox{}\vfill}
+\renewcommand\maketitlehookd{\vfill\null}
+\newcommand{\centered}[1]{\begin{tabular}{l} #1 \end{tabular}}
+\renewcommand{\figurename}{Figura}
+
+\setlength\parindent{0pt} %% Do not touch this
+
+
+%% -----------------------------
+%% -----------------------------
+%% %%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\setlength{\droptitle}{45mm}    
+%% %%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{titlepage}
+\begin{center}
+\uppercase{
+\textbf{Universidade de São Paulo}\\
+\textsc{Escola de Engenharia de São Carlos}
+}
+\hspace{5mm}\\[6cm]
+\Huge{Trabalho I}\\[0.5cm]
+\Large{Transistor MOSFET - Princípios de Operação}\\[3cm]
+\Large{SEL0314 - Circuitos Eletrônicos II \\ Professor:  Marlon Rodrigues Garcia}\\[4cm]
+
+\large{ 
+Enrico Vicenzo Salvador Robazza  nº USP: 9806738\\[3cm]
+18 de Janeiro de 2021
+}
+\end{center}
+\end{titlepage}
+
+% --------------------------
+% Start here
+% --------------------------
+
+% %%%%%%%%%%%%%%%%%%%
+
+\section{Introdução}
+
+O MOSFET, transistor efeito de campo metal - óxido - semicondutor, é o tipo mais comum de transistores de efeito de campo utilizado tanto em circuitos digitais quanto analógicos.
+	Este trabalho apresentará seu funcionamento, os princípios de utilização, a aplicação em alguns circuitos e outras informações pertinentes.
+
+\section{Parte 1 - Os Fundamentos}
+
+\subsection{Forte Inversão}
+
+O primeiro fundamento que será analisado é o conceito de forte inversão. Para exemplificar, será utilizado um dispositivo MOS com dopagem tipo N (o princípio se aplica igualmente ao MOSFET), com uma tensão $V_G$ aplicada no Gate:
+
+\begin{figure}[H]
+  \begin{center}
+    \includegraphics[width=0.4\linewidth]{Images/Mos.png}
+  \end{center}
+  \caption{Dispositivo MOS com dopagem tipo N.}
+\end{figure}
+
+Essa tensão aplicada pode ser positiva ($V_G>0$), negativa ($V_G<0$) ou muito negativa ($V_G<<0$), o que gera três situações: \\[2cm]
+
+\begin{itemize}
+  \item Positiva $V_G > 0$
+  
+  \begin{figure}[H]
+    \begin{center}
+      \includegraphics[width=0.6\linewidth]{Images/Acumulacao_Bandas.png}
+    \end{center}
+    \caption{Diagrama de Bandas com $V_G>0$.}
+  \end{figure}
+
+  Com esse diagrama de bandas, a região próxima ao óxido do semicondutor se comporta como mais fortemente dopado de tipo N.
+Como a tensão aplicada no condutor (metal) é positiva, as cargas positivas do metal serão repelidas para próximo ao isolante (óxido), fazendo com que as cargas negativas do semicondutor sejam atraídas. Esse modo de operação, com $V_G> 0$ é chamado de Acumulação.
+
+\begin{figure}[H]
+  \begin{center}
+    \includegraphics[width=0.6\linewidth]{Images/Acumulacao.png}
+  \end{center}
+  \caption{Acumulação de cargas negativas.}
+\end{figure}
+
+  \item Negativa $V_G < 0$
+  
+  \begin{figure}[H]
+    \begin{center}
+      \includegraphics[width=0.6\linewidth]{Images/Negativo_Bandas.png}
+    \end{center}
+    \caption{Diagrama de Bandas com $V_G<0$.}
+  \end{figure}
+
+  Com esse diagrama de bandas, a região próxima ao óxido do semicondutor se comporta como um semicondutor não dopado.
+	Como a tensão aplicada no condutor (metal) é negativa, as cargas negativas do metal serão repelidas para próximo ao isolante (óxido), fazendo com que os íons positivos do semicondutor sejam atraídos. 
+
+
+  \begin{figure}[H]
+    \begin{center}
+      \includegraphics[width=0.6\linewidth]{Images/Negativo.png}
+    \end{center}
+    \caption{Formação da região de Depleção.}
+  \end{figure}
+
+  \item Muito Negativa $V_G << 0$
+  
+  \begin{figure}[H]
+    \begin{center}
+      \includegraphics[width=0.6\linewidth]{Images/Inversao_Bandas.png}
+    \end{center}
+    \caption{Diagrama de Bandas com $V_G<<0$.}
+  \end{figure}
+
+  Com esse diagrama, a interface entre o isolante e o semicondutor se comporta como um cristal dopado do tipo P, o qual tem um maior número de lacunas do que o número de elétrons. Este fenômeno de geração de colunas é um fenômeno de geração térmica, e é um fenômeno lento.
+	Como a tensão aplicada no condutor (metal) é negativa, além de os íons positivos serem atraídos, as lacunas do semicondutor também são atraídas para a interface com o óxido, formando um pico de cargas positivas. Esse modo de operação é chamado de Inversão. 
+
+  \begin{figure}[H]
+    \begin{center}
+      \includegraphics[width=0.6\linewidth]{Images/Inversao.png}
+    \end{center}
+    \caption{Inversão do semicondutor.}
+  \end{figure}
+
+  Com o último diagrama de bandas, é possível relacionar tensões presentes no dispositivo com as alturas relacionadas aos níveis de energia, de forma que $E=qV$.
+
+  \begin{figure}[H]
+    \begin{center}
+      \includegraphics[width=0.6\linewidth]{Images/Bandas_Tensoes.png}
+    \end{center}
+    \caption{Tensões na Inversão.}
+  \end{figure}
+
+\end{itemize}
+
+Para o conceito de Forte Inversão, temos que $V_G$ é tão negativo de forma que: 
+$$
+  V_G = 2\phi_f + \gamma \sqrt{2 \phi_f}
+$$
+
+Tal que a interface do semicondutor com o óxido se comporta tanto como tipo P quanto a outra extremidade do semicondutor se comporta como tipo N, dessa forma temos que a tensão na interface óxido-semicondutor é $\phi_f$:
+
+\begin{figure}[H]
+  \begin{center}
+    \includegraphics[width=0.6\linewidth]{Images/Tensoes_ForteInversao.png}
+  \end{center}
+  \caption{Tensões na Forte Inversão ($
+  V_G = 2\phi_f + \gamma \sqrt{2 \phi_f}
+$).}
+\end{figure}
+
+Dessa forma $\phi_s = 2 \phi_f$. Para um transistor MOSFET, a Forte Inversão é o requisito mínimo para que haja condução de corrente no dispositivo.
+
+\subsection{Tensão de Limiar}
+
+Nesse caso, a tensão $V_G$ mínima para que ocorra condução de corrente no dispositivo é chamada de Tensão de Threshold, ou Tensão de Limiar ($V_{t_0}'$).
+
+$$
+  V_{t_0} ' = V_{BD} + 2 \phi_f + \gamma \sqrt{2 \phi_f}
+$$
+
+Em que $V_{BD}$ é a Tensão de Banda Plana que foi assumida para que a função trabalho do metal seja igual a função trabalho do semicondutor ($\Phi_M = \Phi_S$). Também devemos assumir que não existem mecanismos extra de geração de portadores livres.
+Entretanto, ao considerarmos um transistor MOSFET:
+
+\begin{figure}[H]
+  \begin{center}
+    \includegraphics[width=0.9\linewidth]{Images/Mosfet.png}
+  \end{center}
+  \caption{Transistor MOSFET}
+\end{figure}
+
+Devemos considerar também a tensão $V_{SB}$ (Tensão do Substrato), de forma que a Tensão de Limiar se torna:
+
+\begin{align*}
+  \begin{split}
+    V_t = V_{BD} + 2 \phi_f + \gamma \sqrt{2 \phi_f + V_{SB}} \\[0.5cm]
+    V_t = V_{t_0} + \gamma ( \sqrt{2 \phi_f + V_{SB}} - \sqrt{2 \phi_f}  )
+  \end{split}
+\end{align*}
+
+\subsection{Região de Operação Triodo com $V_{DS}$ pequeno}
+
+Para o Transistor MOSFET, quando a tensão $V_G$ aplicada é maior do que a Tensão de Limiar, ocorre a forte inversão do semicondutor na área de interface com o Gate, fazendo com que se comporte como dopado tipo N, tornando possível a passagem de uma corrente $I_D$ do Dreno para o Source:
+
+\begin{figure}[H]
+  \begin{center}
+    \includegraphics[width=0.9\linewidth]{Images/Mosfet_Forte_Inversao.png}
+  \end{center}
+  \caption{Transistor MOSFET em Forte Inversão}
+\end{figure}
+
+\subsubsection{Equação de Corrente no Dreno para $V_{DS}$ pequeno}
+
+Para calcular a corrente $I_D$, inicialmente será considerado um $V_{DS}$ pequeno e deve-se encontrar a carga do caminho que passa pelo canal dividido pelo tempo que essa carga demora para passar pelo canal:
+
+$$
+  I_D = \frac{q_{\text{inv}}}{\tau_f}
+$$
+
+Sendo que a carga é:
+
+$$
+  q_{\text{inv}} = C_{\text{ox}} . W . L . (V_{GS} - V_t)
+$$
+
+Em que $W$ é a largura do MOSFET e $L$ é a largura do canal. Para calcular o tempo, temos que:
+
+$$
+  \tau_f = \frac{L^2}{\mu_n . V_{DS}}
+$$
+
+Em que $\mu_n$ representa a mobilidade do elétron. Portanto, a corrente $I_D$ no canal, para a região Triodo com $V_{DS}$ pequeno será:
+
+$$
+  I_D = \mu_n C_{\text{ox}} \frac{W}{L} (V_{GS} - V_t) V_{DS}
+$$
+
+\subsubsection{Curvas $I_D \times V_{DS}$ para $V_{DS}$ pequeno}
+
+Como nessa equação, $\mu_n$, $C_{\text{ox}}$, $W$, $L$ e $V_t$ são constantes do material ou parâmetros de projeto, as únicas variáveis são $V_{GS}$ e $V_{DS}$, portanto dessa forma, a curva $I_D \times V_{DS}$ para cada $V_{GS}$ será:
+
+\begin{figure}[H]
+  \begin{center}
+    \includegraphics[width=0.6\linewidth]{Images/Vds_Ld_Triodo.png}
+  \end{center}
+  \caption{Curvas ($I_D \times V_{DS}$) para diferentes $V_{GS}$ com $V_{DS}$ pequeno.}
+\end{figure}
+
+\subsubsection{Corrente elétrica pelo canal (carga armazenada) abaixo de $V_t$}
+
+Quanto aplicada uma tensão $V_{G}$ abaixo de $V_t$ existe uma corrente elétrica no canal, chamada de carga armazenada, entretanto, ela pode ser considerada como nula pois é muito baixa.
+
+\subsection{Região de Operação Triodo com $V_{DS}$ grande}
+
+Para o caso em que considera-se um $V_{DS}$ grande, a diferença de tensão entre o Dreno e o Gate começa a diminuir, causando a diminuição do canal nesta região, e consequentemente diminuindo o número de cargas: 
+
+\begin{figure}[H]
+  \begin{center}
+    \includegraphics[width=0.9\linewidth]{Images/Mosfet_VDs_grande.png}
+  \end{center}
+  \caption{Transistor MOSFET com $V_{DS}$ grande.}
+\end{figure}
+
+\subsubsection{Equação de Corrente no Dreno para $V_{DS}$ grande}
+
+Para calcular a corrente $I_D$ considerando a diminuição do canal, deve-se realizar um cálculo de integral, de forma que:
+
+\begin{align*}
+  \begin{split}
+    I_D dx &= \frac{dq_{\text{inv}}}{d \tau_f} \\[0.1cm]
+    \int_0^L I_D dx &= I_D \\[0.5cm]
+    \therefore I_D = \mu_n C_{\text{ox}} \frac{W}{L} & \Big[ (V_{GS}-V_t)V_{DS}-\frac{(V_{DS})^2}{2} \Big ]
+  \end{split}
+\end{align*}
+
+\subsubsection{Curvas $I_D \times V_{DS}$ para $V_{DS}$ grande}
+
+Agora, temos que $I_D$ depende de $(V_{DS})^2$, e portanto as curvas para essa região serão:
+
+\begin{figure}[H]
+  \begin{center}
+    \includegraphics[width=0.6\linewidth]{Images/Vds_Ld_VDS_grande.png}
+  \end{center}
+  \caption{Curvas ($I_D \times V_{DS}$) para diferentes $V_{GS}$ com $V_{DS}$ grande.}
+\end{figure}
+
+\subsubsection{Porque a tensão $V_{DS}$ altera a formação do canal?}
+
+A alteração na formação do canal ocorre pois com o aumento da tensão $V_{DS}$, ocorre um aumento no campo elétrico entre o Dreno e o Gate, reduzindo o potencial na superfície do substrato e fazendo com que o canal se estreite cada vez mais.
+
+\subsection{Região de Operação de Pinçamento}
+
+Quando aumentamos $V_{DS}$ ainda mais de forma que $V_{DS}=V_{GS}-V_t$ começa-se a entrar na chamada Região de Pinçamento. 
+
+\subsubsection{Equação de Corrente no Dreno para a Região de Pinçamento}
+
+Nesse caso, se substituirmos $V_{DS}$ na equação de corrente, temos que:
+
+$$
+  I_D = \frac{\mu_n C_{\text{ox}}}{2} \frac{W}{L} (V_{GS} - V_t)^2 
+$$
+
+\subsubsection{Curvas $I_D \times V_{DS}$ para a Região de Pinçamento}
+
+Nesse caso, $I_D$ se torna fracamente dependente de $V_{DS}$ e portanto as curvas passam a ser constantes:
+
+\begin{figure}[H]
+  \begin{center}
+    \includegraphics[width=0.6\linewidth]{Images/Vds_Ld_Pincamento.png}
+  \end{center}
+  \caption{Curvas ($I_D \times V_{DS}$) para diferentes $V_{GS}$ com $V_{DS} \geq V_{GS} - V_t$.}
+  \label{fig:chart_pincamento}
+\end{figure}
+
+\subsubsection{Parâmetros de fabricação e de projeto}
+
+Quando analisamos os parâmetros dessa equação, temos que $\mu_n$ e $C_{\text{ox}}$ dependem do material de fabricação e do processo de dopagem, e $W$ e $L$ são parâmetros do projeto. Logo, qualquer alteração nesses parâmetros irá causar alterações nas curvas $I_D \times V_{DS}$.
+Os parâmetros de projeto podem ser mais facilmente alterados do que os parâmetros do material e do processo de dopagem.
+
+\subsection{Modulação de Largura de Canal}
+
+O último gráfico (\ref{fig:chart_pincamento}), entretanto, não considera o efeito de modulação de canal, pois quando $V_{DS} > V_{GS} - V_t$, ocorre a depleção de cargas no canal:
+
+\begin{figure}[H]
+  \begin{center}
+    \includegraphics[width=0.9\linewidth]{Images/Mosfet_Pincamento.png}
+  \end{center}
+  \caption{Transistor MOSFET com $V_{DS} > V_{GS} - V_t$}
+\end{figure}
+
+Nesse caso, o tamanho do canal passa a ser menor do que $L$, passa a ser um $L_{\text{ef}}$ (efetivo), que é modulado conforme $V_{DS}$ aumenta (Efeito de Modulação de Largura do Canal). Entretanto, não ocorre uma anulação da corrente pelo canal por causa da região de depleção, pelo contrário, na região de depleção forma-se um campo elétrico a favor da corrente elétrica. Dessa forma, a equação da corrente $I_D$ será:
+
+$$
+  I_D = \frac{\mu_n C_{\text{ox}}}{2} \frac{W}{L_{\text{ef}}} (V_{GS} - V_t)^2
+$$
+
+Sendo que quanto maior $V_{DS}$, menor o $L_{\text{ef}}$, e portanto, maior será $I_D$. Com isso, o gráfico de curvas real de $I_D \times V_{DS}$ será:
+
+\begin{figure}[H]
+  \begin{center}
+    \includegraphics[width=0.6\linewidth]{Images/Vds_Ld_efetivo.png}
+  \end{center}
+  \caption{Curvas ($I_D \times V_{DS}$) para diferentes $V_{GS}$ com $V_{DS} \geq V_{GS} - V_t$ considerando o Efeito de Modulação de Largura do Canal.}
+\end{figure}
+
+\subsubsection{Tensão \textit{Early} ($V_A$)}
+
+Assim como no transistor bipolar, o efeito \textit{Early} pode ter sua tensão calculada através da extrapolação das retas para a região de pinçamento para a região negativa de $V_{DS}$:
+
+\begin{figure}[H]
+  \begin{center}
+    \includegraphics[width=0.9\linewidth]{Images/Tensao_Early.png}
+  \end{center}
+  \caption{Tensão \textit{Early} ($V_A$).}
+  \label{fig:tensao_early}
+\end{figure}
+
+Com as denotações de $\Delta I_D$ e $\Delta V_{DS}$ como no gráfico (\ref{fig:tensao_early}), é possível encontrar:
+
+$$
+  -V_A = \frac{-1}{\lambda} = L_{\text{ef}} \Big ( \frac{dx_d}{dV_{DS}} \Big )^{-1}
+$$
+
+\subsubsection{Equação de Corrente no Dreno para a Região de Pinçamento considerando o Efeito de Modulação de Largura do Canal}
+
+Para considerarmos esse efeito de modulação da largura do canal na equação de $I_D$, podemos aproximar e adicionar um fator de correção:
+
+$$
+  I_D = \frac{\mu_n C_{\text{ox}}}{2} \frac{W}{L_{\text{ef}}} (V_{GS} - V_t)^2 (1 + \lambda V_{DS})
+$$
+
+\section{Parte II - Circuitos Importantes}
+
+\subsection{Modelo a Grande Sinais}
+
+Primeiramente, consideramos que utilizaremos apenas a Região de Pinçamento, e portanto:
+
+\begin{align*}
+  \begin{cases}
+    V_{DS} > V_{GS} - V_t \\
+    V_{GS} > V_t
+  \end{cases}
+\end{align*}
+
+Para essa região, temos que a equação de corrente é dada por:
+
+$$
+  I_D = \frac{\mu_n C_{\text{ox}}}{2} \frac{W}{L} (V_{GS} - V_t)^2
+$$
+
+A partir dela, pode-se concluir que temos uma fonte de corrente controlada por tensão, nos levando ao circuito equivalente:
+
+\begin{figure}[H]
+  \begin{center}
+    \includegraphics[width=0.7\linewidth]{Images/Circuitos_Grandes_Sinais.png}
+  \end{center}
+  \caption{Circuito equivalente para grandes sinais.}
+  \label{fig:circuito_grandes_sinais}
+\end{figure}
+
+\subsubsection{Modulação de Largura de Canal}
+
+Entretanto, o modelo apresentado anteriormente (\ref{fig:circuito_grandes_sinais}) não considera a Modulação da Largura do Canal. Para considerarmos esse efeito devemos incluir um componente para que haja um aumento linear da corrente com a tensão. Esse componente pode ser um resistor, visto que $V = RI$.
+
+Para considerarmos o Efeito de Modulação da Largura do Canal, inclui-se um componente na equação de $I_D$, de forma que:
+
+$$
+  I_D = \frac{\mu_n C_{\text{ox}}}{2} \frac{W}{L} (V_{GS} - V_t)^2 \Biggl ( 1 + \frac{V_{DS}}{V_A} \Biggl )
+$$
+
+Se adotarmos $I_D'$ como:
+
+$$
+  I_D' = \frac{\mu_n C_{\text{ox}}}{2} \frac{W}{L} (V_{GS} - V_t)^2
+$$
+
+Temos que a nova corrente $I_D$ com a consideração do Efeito de Modulação da Largura do Canal será:
+
+\begin{align}
+  I_D = I_D' + \frac{I_D'}{V_A} V_{DS}
+  \label{eq:id1}
+\end{align}
+
+No qual o termo $\frac{I_D'}{V_A}$ pode ser modelado como uma resistência: 
+
+\begin{align}
+  I_D = I_D' + \frac{1}{r_0} V_{DS}
+  \label{eq:id2}
+\end{align}
+
+Assim, podemos incluir essa resistência no nosso modelo somando-a, em paralelo com a fonte de corrente:
+
+\begin{figure}[H]
+  \begin{center}
+    \includegraphics[width=0.7\linewidth]{Images/Circuitos_Grandes_Sinais_r0.png}
+  \end{center}
+  \caption{Circuito equivalente para grandes sinais com a consideração da Modulação da Largura do Canal.}
+  \label{fig:circuito_grandes_sinais}
+\end{figure}
+
+\subsubsection{Equação para a Resistência}
+
+Das equações (\ref{eq:id1}) e (\ref{eq:id2}), temos que o valor da resistência $r_0$ é:
+
+$$
+  r_0 = \frac{V_A}{I_D}
+$$
+
+\subsection{Transístor conectado como diodo}
+
+Para utilizar o transístor conectado como diodo, basta conectar o Gate no Dreno:
+
+
+\begin{figure}[H]
+  \centering
+  \begin{subfigure}{.3\linewidth}
+    \centering
+    \includegraphics[width=.9\linewidth]{Images/Transistor_Diodo.png}
+  \end{subfigure}%
+  \begin{subfigure}{.7\linewidth}
+    \centering
+    \includegraphics[width=.8\linewidth]{Images/Circuitos_Grandes_Sinais_Diodo.png}
+  \end{subfigure}
+  \caption{Transístor conectado como Diodo.}
+  \end{figure}
+
+Com isso, temos que:
+
+$$
+\begin{cases}
+  V_G = V_D \\
+  V_{DS} = V_{GS}
+\end{cases}
+$$
+
+Para estarmos operando na região de pinçamento, devemos ter que $V_{DS} > V_{GS} - V_t$, mas como $V_{DS} = V_{GS}$, temos que:
+
+\begin{align}
+  \begin{split}
+    V_{DS} &> V_{GS} - V_t \\
+    V_{DS} &> V_{DS} - V_t \\
+    0 &> -V_t
+  \end{split}
+\end{align}
+
+Portanto, o Transístor conectado como Diodo sempre opera na Região de Pinçamento se estiver ligado.
+
+Se traçarmos uma curva de $i_D$ por $V_{DS} = V_{GS}$, obtém-se:
+
+\begin{figure}[H]
+  \begin{center}
+    \includegraphics[width=0.7\linewidth]{Images/Curva_diodo.png}
+  \end{center}
+  \caption{Curva de $i_D$ por $V_{DS}$ para o Transístor conectado como Diodo.}
+\end{figure}
+
+Essa curva é exatamente igual a curva de $I_D$ por $V$ do Diodo, portanto podemos concluir que um Transístor conectado como Diodo funciona exatamente como um Diodo.
+
+\subsection{Transcondutância $g_m$ e Transresistência $r_m$}
+
+\subsubsection{Transcondutância $g_m$}
+
+Para o conceito de Transcondutância, utilizaremos o seguinte circuito com o MOSFET, com $V_{GS}$ variável:
+
+\begin{figure}[H]
+  \begin{center}
+    \includegraphics[width=0.25\linewidth]{Images/Transcondutancia.png}
+  \end{center}
+  \caption{Circuito MOSFET com $V_{GS}$ variável.}
+\end{figure}
+
+Adotaremos as seguintes condições para operarmos na Região de Pinçamento:
+
+\begin{align*}
+  \begin{cases}
+    V_{DS} > V_{GS} - V_t \\
+    V_{GS} > V_t
+  \end{cases}
+\end{align*}
+
+Dessa forma, a equação da corrente $I_D$ será:
+
+$$
+  I_D = \frac{\mu_n C_{\text{ox}}}{2} \frac{W}{L} (V_{GS}-V_t)^2
+$$
+
+Como $V_{GS}$ é variável, podemos traçar um gráfico de $I_D$ por $V_{GS}$:
+
+\begin{figure}[H]
+  \begin{center}
+    \includegraphics[width=0.7\linewidth]{Images/Transcondutancia_Grafico.png}
+  \end{center}
+  \caption{Gráfico de $I_D \times V_{GS}$.}
+\end{figure}
+
+Para esse gráfico, temos que a Transcondutancia ($g_m$) para um ponto será a inclinação da reta tangente nesse ponto, e portanto:
+
+\begin{align*}
+  \begin{split}
+    g_m &= \frac{\delta I_D}{\delta V_{GS}} \\[0.7cm]
+    \therefore g_m &= \mu_n C_{\text{ox}} \frac{W}{L} (V_{GS} - V_t)
+  \end{split}
+\end{align*}
+
+Ou então, em termos de $I_D$, a transcondutância $g_m$ será:
+
+$$
+  g_m = \sqrt{2 \mu_n C_{\text{ox}} \frac{W}{L} I_D}
+$$
+
+Com isso, podemos definir Transcondutância como a ‘‘força’’ do Transístor de conduzir corrente através de uma tensão $V_{GS}$ aplicada.
+
+\subsubsection{Transresistência $r_m$}
+
+Para o conceito de Transresistência, temos que ela é o inverso da Transcondutância, assim como $R = \frac{1}{G}$, portanto:
+
+$$
+  r_m = \frac{1}{g_m}
+$$
+
+\subsubsection{Parâmetros da Equação}
+
+Ao analisarmos as equação para a Transcondutância $g_m$ e Transresistência $r_m$, podemos notar que $W$ e $L$ são parâmetros de projeto, enquanto $\mu_n$ e $C_{\text{ox}}$ são parâmetros de fabricação.
+
+Portanto, a Transcondutância $g_m$ e a Transresistência $r_m$ podem ser projetadas alterando-se os parâmetros de fabricação (o que pode ser mais complicado), ou especificando a razão $\frac{W}{L}$ desejada.
+
+Para a última opção, entretanto, existe uma limitação pois o ganho do transistor $A_V$ é proporcional a $g_m . r_0$, e $r_0$ é:
+
+$$
+  r_0 = \frac{V_A}{I_D}
+$$
+
+Sendo que $V_A$ é proporcional ao $L_{\text{ef}}$:
+
+$$
+  V_A = L_{\text{ef}} \Big ( \frac{dx_d}{dV_{GS}} \Big ) ^{-1}
+$$
+
+Portanto, se o $L$ é aumentado, a Tensão \textit{Early} $V_A$ também é aumentada, porém isso faz com que a Transcondutancia $g_m$ seja reduzida e a Transresistência $r_m$ seja aumentada.
+
+\subsection{Comparação entre MOSFET e Transistor Bipolar de Junção (TBJ)}
+
+Para comparar o Transistor MOSFET com o TBJ, primeiramente serão elencadas as principais diferenças entre eles.
+
+\subsubsection{Simbologia}
+
+\begin{itemize}
+  \item TBJ
+  
+  \begin{figure}[H]
+    \centering
+    \begin{subfigure}{.5\linewidth}
+      \centering
+      \includegraphics[width=0.5\linewidth]{Images/TBJ_NPN.png}
+      \caption{NPN}
+    \end{subfigure}%
+    \begin{subfigure}{.5\linewidth}
+      \centering
+      \includegraphics[width=0.5\linewidth]{Images/TBJ_PNP.png}
+      \caption{PNP}
+    \end{subfigure}
+    \caption{Simbologia TBJ.}
+    \end{figure}
+
+  \item MOSFET
+  
+  \begin{figure}[H]
+    \centering
+    \begin{subfigure}{.5\linewidth}
+      \centering
+      \includegraphics[width=0.6\linewidth]{Images/MOSFET_NMOS.png}
+      \caption{NMOS}
+    \end{subfigure}%
+    \begin{subfigure}{.5\linewidth}
+      \centering
+      \includegraphics[width=0.6\linewidth]{Images/MOSFET_PMOS.png}
+      \caption{PMOS}
+    \end{subfigure}
+    \caption{Simbologia MOSFET.}
+    \end{figure}
+
+\end{itemize}
+
+\subsubsection{Curvas}
+
+\begin{itemize}
+  \item TBJ
+  
+  \begin{figure}[H]
+    \begin{center}
+      \includegraphics[width=0.6\linewidth]{Images/Curvas_TBJ.png}
+    \end{center}
+    \caption{Curvas TBJ.}
+  \end{figure}
+
+  A condição para a Região de Saturação é que as duas junções estejam diretamente polarizadas, enquanto para a Região Ativa, a condição é que a junção $BE$ esteja diretamente polarizada, enquanto a junção $BC$ deve estar inversamente polarizada. Quanto $V_{BE}$ não for diretamente polarizado, o dispositivo encontra-se na Região de Corte.
+
+  \begin{figure}[H]
+    \centering
+    \begin{subfigure}{.5\linewidth}
+      \centering
+      \includegraphics[width=0.5\linewidth]{Images/TBJ_Saturacao.png}
+      \caption{Região de Saturação}
+    \end{subfigure}%
+    \begin{subfigure}{.5\linewidth}
+      \centering
+      \includegraphics[width=0.5\linewidth]{Images/TBJ_Ativa.png}
+      \caption{Região Ativa}
+    \end{subfigure}
+    \caption{Regiões TBJ.}
+    \end{figure}
+
+
+  \item MOSFET
+  
+  \begin{figure}[H]
+    \begin{center}
+      \includegraphics[width=0.6\linewidth]{Images/Curvas_MOSFET.png}
+    \end{center}
+    \caption{Curvas MOSFET.}
+  \end{figure}
+
+  As condições para a Região de Triodo são:
+
+  \begin{align*}
+    \begin{cases}
+      V_{DS} < V_{GS} - V_t \\
+      V_{GS} > V_t
+    \end{cases}
+  \end{align*}
+  
+  E as condições para a Região de Pinçamento são:
+
+  \begin{align*}
+    \begin{cases}
+      V_{DS} > V_{GS} - V_t \\
+      V_{GS} > V_t
+    \end{cases}
+  \end{align*}
+
+\end{itemize}
+
+\subsubsection{Equações de Corrente}
+
+\begin{itemize}
+  \item TBJ na Região Ativa
+  
+  $$
+    I_C = I_S \Biggl [ exp \Big (\frac{V_{BE}}{V_T} \Big ) -1 \Biggl ] \Biggl (1 + \frac{V_{CE}}{V_A} \Biggl )
+  $$
+
+
+  \item MOSFET na Região de Pinçamento
+  
+  $$
+    I_D = \frac{\mu_n C_{\text{ox}}}{2} \frac{W}{L} (V_{GS}-V_t) \Biggl (1 + \frac{V_{DS}}{V_A} \Biggl )
+  $$
+
+\end{itemize}
+
+\subsubsection{Transcondutância}
+
+\begin{itemize}
+  \item TBJ
+  
+  \begin{figure}[H]
+    \begin{center}
+      \includegraphics[width=0.6\linewidth]{Images/Transcondutancia_Grafico_TBJ.png}
+    \end{center}
+    \caption{Transcondutância TBJ.}
+    \label{fig:transc_tbj}
+  \end{figure}
+
+  Para o TBJ, a Transcondutância $g_m$ será:
+
+  \begin{align}
+    \begin{split}
+      g_m = \frac{\delta I_C}{\delta V_{BE}} \\[0.3cm]
+      g_m = \frac{I_C}{V_T}
+    \end{split}
+  \end{align}
+
+  \item MOSFET
+  
+  \begin{figure}[H]
+    \begin{center}
+      \includegraphics[width=0.6\linewidth]{Images/Transcondutancia_Grafico.png}
+    \end{center}
+    \caption{Transcondutância MOSFET.}
+    \label{fig:transc_mosfet}
+  \end{figure}
+
+  Para o MOSFET, a Transcondutancia $g_m$ será:
+
+  $$
+    g_m = \sqrt{2 \mu_n C_{\text{ox}} \frac{W}{L} I_D}
+  $$
+
+\end{itemize}
+
+Ao analisarmos os gráficos $I_C \times V_{BE}$ do TBJ (\ref{fig:transc_tbj}) e $I_D \times V_{GS}$ do MOSFET (\ref{fig:transc_mosfet}), pode-se notar que a primeira curva é exponencial, enquanto a segunda é quadrática e com isso podemos concluir que geralmente a inclinação da primeira curva será bem maior do que a inclinação da segunda, e portanto:
+
+$$
+  g_{m(TBJ)} \gg g_{m(MOSFET)}
+$$
+
+Entretanto, apesar de possuir uma Transcondutância menor, o MOSFET possui mais parâmetros de controle sobre sua equação de corrente e sobre sua transcondutância, oferecendo uma maior liberdade e tornando-o mais dinâmico.
+
+
+\subsubsection{Resistência $r_0$}
+
+\begin{itemize}
+  \item Para o TBJ, a Resistência será 
+
+  $$
+    r_0 = \frac{V_A}{I_C}
+  $$
+
+  \item Para o MOSFET, a Resistência será parecida:
+
+  $$
+    r_0 = \frac{V_A}{I_D}
+  $$
+  
+  Entretanto, para o MOSFET, $V_A$ é:
+
+  $$
+    V_A = L_{\text{ef}} \Big ( \frac{dx_d}{dV_{GS}} \Big ) ^{-1}
+  $$
+  
+\end{itemize}
+
+\subsubsection{Velocidade dos Transístors}
+
+Em relação a velocidade, o transistor TBJ possui uma capacidade de funcionar com frequências maiores $f_{\text{TBJ}} \gg f_{\text{MOSFET}}$, pois a capacitância do TBJ é menor do que a do MOSFET $C_{\text{TBJ}} \ll C_{\text{MOS}}$.
+
+\subsubsection{Velocidade de Carga e Descarga}
+
+Para o transistor TBJ, a mudança da Região Ativa para a Região de Saturação ocorre de maneira lenta, fazendo com que sua velocidade de descarga seja muito menor do que a do transistor MOSFET.
+
+Por essa questão, o transistor MOSFET é mais utilizado na confecção de portas lógicas.
+
+\subsubsection{Conclusão}
+
+Depois de analisarmos as principais diferenças entre os transistores TBJ e MOSFET, podemos concluir que não existe um dispositivo melhor para todas as situações, cada um dos transistores possui aplicações em que é mais adequado, como o MOSFET para portas lógicas e o TBJ para circuitos que exigem $g_m$ alto. Dessa forma, cabe ao projetista escolher o melhor tipo de transistor para seu circuito.
+
+\subsection{Dispositivo arbitrário de três terminais (DAT)}
+
+Ao analisarmos transistores, podemos representar qualquer dispositivo que já existiu ou que irá existir através de um dispositivo arbitrário (DAT). Dessa forma, é possível equacionar o seu funcionamento de maneira genérica, podendo se adaptar a um transistor que possa ser inventado no futuro.
+
+\section{Modelo a Pequenos Sinais}
+
+\subsection{Modelo $\pi$ - Híbrido}
+
+Quando trabalhamos com pequenos sinais, podemos assumir que a variação de corrente com a variação de tensão é linear, de forma que:
+
+\begin{equation}
+  i_c = g_m . v_{be}
+  \tag{TBJ}
+\end{equation}
+
+\begin{equation}
+  i_d = g_m . v_{gs}
+  \tag{MOSFET}
+\end{equation} 
+
+Assim, podemos modelar os seguintes circuitos equivalentes para o MOSFET e para o TBJ:
+
+\begin{figure}[H]
+  \centering
+  \begin{subfigure}{.5\linewidth}
+    \centering
+    \includegraphics[width=0.9\linewidth]{Images/Circuitos_Pequenos_Sinais_TBJ2.png}
+    \caption{TBJ}
+  \end{subfigure}%
+  \begin{subfigure}{.5\linewidth}
+    \centering
+    \includegraphics[width=0.9\linewidth]{Images/Circuitos_Pequenos_Sinais_Mosfet.png}
+    \caption{MOSFET}
+  \end{subfigure}
+  \caption{Modelo $\pi$ - Híbrido.}
+  \end{figure}
+
+Esse modelo é chamado de $\pi$ - Híbrido, sendo que para o TBJ, $v_{be} = v_{\pi}$, e o resistor tem valor $r_{\pi}$.
+
+O modelo $\pi$ - Híbrido é utilizado quando a referência do circuito está conectada no emissor (TBJ) ou no source (MOS).
+
+Podemos calcular $r_{\pi}$ como:
+
+\begin{align*}
+  \begin{split}
+    r_{\pi} = \frac{\delta v_{be}}{\delta i_b} \\[0.4cm]
+    r_{\pi} = \beta r_m
+  \end{split}
+\end{align*}
+
+Com isso, também temos que as correntes serão:
+
+\begin{equation}
+  i_c = g_m . v_{\pi}
+  \tag{TBJ}
+\end{equation}
+
+\begin{equation}
+  i_d = g_m . v_{\pi}
+  \tag{MOSFET}
+\end{equation} 
+
+\subsection{Modelo T}
+
+Uma representação alternativa ao modelo de pequenos sinais é o Modelo T, que é utilizado nos casos em que a referência não está conectada no emissor ou no source.
+
+\begin{figure}[H]
+  \centering
+  \begin{subfigure}{.5\linewidth}
+    \centering
+    \includegraphics[width=0.9\linewidth]{Images/Modelo_T_TBJ.png}
+    \caption{TBJ}
+  \end{subfigure}%
+  \begin{subfigure}{.5\linewidth}
+    \centering
+    \includegraphics[width=0.9\linewidth]{Images/Modelo_T_Mosfet.png}
+    \caption{MOSFET}
+  \end{subfigure}
+  \caption{Modelo T.}
+  \end{figure}
+
+\subsection{Conceitos Adicionais}
+
+\subsubsection{Polarização de um Transistor}
+
+A polarização dos transistores é utilizada para que as tensões e correntes no transistor estejam nos valores necessários para atuar em uma região desejada.
+
+\subsubsection{Energia que liga um circuito com transistores}
+
+A energia que liga um circuito com transístores vem dos sinais de flutuação.
+
+\subsection{Aplicação para o Emissor Comum}
+
+\subsubsection{MOSFET}
+
+Em um circuito de Emissor Comum:
+
+\begin{figure}[H]
+  \begin{center}
+    \includegraphics[width=0.3\linewidth]{Images/Coletor_comum2.png}
+  \end{center}
+  \caption{Emissor Comum (MOSFET).}
+\end{figure}
+
+A tensão $V_O$ será:
+
+$$
+  V_O = V_{DD} - i_D R_D
+$$
+
+Com isso, podemos traçar um gráfico de $V_O$ por $V_i$:
+
+
+\begin{figure}[H]
+  \begin{center}
+    \includegraphics[width=0.6\linewidth]{Images/Emissor_Comum_Mosfet.png}
+  \end{center}
+  \caption{Gráfico de $V_O$ por $V_i$.}
+\end{figure}
+
+Para encontrarmos o ganho do transistor para um ponto, basta encontrarmos a tangente da reta nesse ponto, ou seja:
+
+\begin{align}
+  \begin{split}
+    A_v &= \frac{\delta V_O}{\delta V_i} \\
+        &= \mu_n C_{\text{ox}} \frac{W}{L} (V_{GS} - V_t) R_D \\[0.4cm]
+    \therefore A_v &= -g_m R_D
+  \end{split} 
+  \label{eq:ganho1_mosfet}
+\end{align}
+
+Como temos a fonte e o emissor na referência, o mais adequado é utilizar o Modelo $\pi$ - Híbrido:
+
+\begin{figure}[H]
+  \begin{center}
+    \includegraphics[width=0.6\linewidth]{Images/Emissor_Comum_Pi_Mosfet3.png}
+  \end{center}
+  \caption{Modelo $\pi$ - Híbrido (MOSFET) para o Emissor Comum.}
+\end{figure}
+
+Com isso, temos que:
+
+$$
+  V_O = -g_m . V_i . R_D
+$$
+
+O ganho será:
+
+\begin{align}
+  \begin{split}
+    A_v = \frac{V_O}{V_i} \\
+    A_v = - g_m . R_C
+  \end{split}
+  \label{eq:ganho2_mosfet}
+\end{align}
+
+Nota-se que o valor encontrado para $A_v$ em (\ref{eq:ganho2_mosfet}) é o mesmo que encontrado em (\ref{eq:ganho1_mosfet}).
+
+\subsubsection{TBJ}
+
+\begin{figure}[H]
+  \begin{center}
+    \includegraphics[width=0.3\linewidth]{Images/Coletor_comum_TBJ.png}
+  \end{center}
+  \caption{Emissor Comum (TBJ).}
+\end{figure}
+
+A tensão $V_O$ será:
+
+\begin{align*}
+  \begin{split}
+    V_O &= V_{CC} - i_C . R_C \\
+        &= V_{CC} - I_S . exp \Big (\frac{V_{BE}}{V_T} \Big ) . R_C
+  \end{split}
+\end{align*}
+
+Da mesma forma que para o MOSFET, podemos traçar um gráfico de $V_O$ por $V_i$:
+
+\begin{figure}[H]
+  \begin{center}
+    \includegraphics[width=0.6\linewidth]{Images/Emissor_Comum_TBJ.png}
+  \end{center}
+  \caption{Gráfico de $V_O$ por $V_i$.}
+\end{figure}
+
+
+Da mesma forma que para o MOSFET, podemos definir o ganho como:
+
+\begin{align}
+  \begin{split}
+    A_v &= \frac{\delta V_O}{\delta V_i} \\
+        &= - \frac{1}{V_T} I_C . R_C \\[0.4cm]
+    \therefore A_v &= -g_m . R_C \\
+  \end{split}
+  \label{eq:ganho1_tbj}
+\end{align}
+
+Utilizando o Modelo $\pi$ - Híbrido:
+
+
+\begin{figure}[H]
+  \begin{center}
+    \includegraphics[width=0.6\linewidth]{Images/Emissor_Comum_Pi_TBJ.png}
+  \end{center}
+  \caption{Modelo $\pi$ - Híbrido (TBJ) para o Emissor Comum.}
+\end{figure}
+
+Com isso, temos que:
+
+
+\begin{align*}
+  \begin{split}
+    V_O &= -i_C . R_C \\
+        &= -g_m . V_{\pi} . R_C
+  \end{split}
+\end{align*}
+
+O ganho será:
+
+\begin{align}
+  \begin{split}
+    A_v = \frac{V_O}{V_i} \\
+    A_v = - \frac{g_m . V_{\pi} . R_C}{V_{\pi}} \\[0.4cm]
+    \therefore A_v = -g_m . R_C
+  \end{split}
+  \label{eq:ganho2_tbj}
+\end{align}
+
+Nota-se que o valor encontrado para $A_v$ em (\ref{eq:ganho2_tbj}) é o mesmo que encontrado em (\ref{eq:ganho1_tbj}).
+
+
+\end{document}
